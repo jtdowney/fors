@@ -2,6 +2,10 @@
 name = "fors"
 version = "0.1.0"
 authors = ["John Downey <jdowney@gmail.com>"]
+description = "Run foreman Procfiles with Rust"
+repository = "https://github.com/jtdowney/fors"
+readme = "README.md"
+license = "MIT"
 
 [dependencies]
 clap = "^2.18.0"
