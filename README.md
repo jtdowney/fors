@@ -1,5 +1,7 @@
 # fors
 
+[![Build Status](https://travis-ci.org/jtdowney/fors.svg?branch=master)](https://travis-ci.org/jtdowney/fors)
+
 Run foreman Procfiles with Rust
 
 ## Installation
