@@ -1,0 +1,10 @@
+[package]
+name = "fors"
+version = "0.1.0"
+authors = ["John Downey <jdowney@gmail.com>"]
+
+[dependencies]
+clap = "^2.18.0"
+nix = "^0.7.0"
+nom = "^1.2.4"
+term = "^0.4.4"
