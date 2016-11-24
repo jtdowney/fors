@@ -1,4 +1,4 @@
-use nom::{IResult, eof, line_ending, not_line_ending, space};
+use nom::{IResult, line_ending, not_line_ending, space};
 use std::fs::File;
 use std::io;
 use std::io::Read;
@@ -35,7 +35,7 @@ named!(process_entry<&[u8], ProcfileEntry>,
            char!(':') ~
            opt!(space) ~
            command: map_res!(not_line_ending, str::from_utf8) ~
-           alt_complete!(eof | line_ending),
+           alt_complete!(eof!() | line_ending),
            || {
                ProcfileEntry {
                    name: name.to_string(),
