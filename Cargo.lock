@@ -4,7 +4,7 @@ version = "0.1.0"
 dependencies = [
  "clap 2.18.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "nix 0.7.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "nom 1.2.4 (registry+https://github.com/rust-lang/crates.io-index)",
+ "nom 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "term 0.4.4 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -72,7 +72,7 @@ dependencies = [
 
 [[package]]
 name = "nom"
-version = "1.2.4"
+version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
@@ -151,7 +151,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum kernel32-sys 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)" = "7507624b29483431c0ba2d82aece8ca6cdba9382bff4ddd0f7490560c056098d"
 "checksum libc 0.2.17 (registry+https://github.com/rust-lang/crates.io-index)" = "044d1360593a78f5c8e5e710beccdc24ab71d1f01bc19a29bcacdba22e8475d8"
 "checksum nix 0.7.0 (registry+https://github.com/rust-lang/crates.io-index)" = "a0d95c5fa8b641c10ad0b8887454ebaafa3c92b5cd5350f8fc693adafd178e7b"
-"checksum nom 1.2.4 (registry+https://github.com/rust-lang/crates.io-index)" = "a5b8c256fd9471521bcb84c3cdba98921497f1a331cbc15b8030fc63b82050ce"
+"checksum nom 2.0.0 (registry+https://github.com/rust-lang/crates.io-index)" = "628d6ee18ab0ca1c1feb3331caa6ad2e53f6053b2505662b90d194889bbcd571"
 "checksum rustc_version 0.1.7 (registry+https://github.com/rust-lang/crates.io-index)" = "c5f5376ea5e30ce23c03eb77cbe4962b988deead10910c372b226388b594c084"
 "checksum semver 0.1.20 (registry+https://github.com/rust-lang/crates.io-index)" = "d4f410fedcf71af0345d7607d246e7ad15faaadd49d240ee3b24e5dc21a820ac"
 "checksum strsim 0.5.1 (registry+https://github.com/rust-lang/crates.io-index)" = "50c069df92e4b01425a8bf3576d5d417943a6a7272fbabaf5bd80b1aaa76442e"

@@ -10,5 +10,5 @@ license = "MIT"
 [dependencies]
 clap = "^2.18.0"
 nix = "^0.7.0"
-nom = "^1.2.4"
+nom = "^2.0"
 term = "^0.4.4"
