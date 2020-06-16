@@ -1,6 +1,6 @@
 # fors
 
-[![Build Status](https://travis-ci.org/jtdowney/fors.svg?branch=master)](https://travis-ci.org/jtdowney/fors)
+[![Build Status](https://travis-ci.org/jtdowney/fors.svg?branch=main)](https://travis-ci.org/jtdowney/fors)
 [![](https://img.shields.io/crates/v/fors.svg)](https://crates.io/crates/fors)
 
 Run foreman Procfiles with Rust
