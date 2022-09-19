@@ -1,5 +1,6 @@
 use clap::{App, AppSettings, Arg, ArgMatches, SubCommand};
 use nix::sys;
+use nix::unistd::Pid;
 use output::Output;
 use procfile_parser::Error;
 use std::path::Path;
@@ -23,9 +24,10 @@ pub type Result<T> = result::Result<T, Error>;
 fn check<P: AsRef<Path>>(procfile_path: P) -> Result<()> {
     match procfile_parser::load(procfile_path) {
         Ok(entries) => {
-            let names: Vec<&str> = entries.iter()
-                                          .map(|ref entry| entry.name.as_str())
-                                          .collect();
+            let names: Vec<&str> = entries
+                .iter()
+                .map(|ref entry| entry.name.as_str())
+                .collect();
             println!("Valid procfile ({})", names.join(", "));
         }
         Err(Error::Parsing) => println!("Invalid procfile"),
@@ -36,7 +38,11 @@ fn check<P: AsRef<Path>>(procfile_path: P) -> Result<()> {
 
 fn start(procfile_path: &Path, root_path: &Path) -> Result<()> {
     let processes = try!(procfile_parser::load(procfile_path));
-    let padding = processes.iter().map(|process| process.name.len()).max().unwrap();
+    let padding = processes
+        .iter()
+        .map(|process| process.name.len())
+        .max()
+        .unwrap();
 
     let barrier = Arc::new(Barrier::new(processes.len() + 1));
     let (tx, rx) = sync::mpsc::channel();
@@ -47,12 +53,12 @@ fn start(procfile_path: &Path, root_path: &Path) -> Result<()> {
         thread::spawn(move || {
             let mut output = Output::new(padding);
             let mut child = Command::new("sh")
-                                .arg("-c")
-                                .arg(&process.command)
-                                .stdout(Stdio::piped())
-                                .current_dir(&root_path)
-                                .spawn()
-                                .unwrap();
+                .arg("-c")
+                .arg(&process.command)
+                .stdout(Stdio::piped())
+                .current_dir(&root_path)
+                .spawn()
+                .unwrap();
             tx.send(child.id() as i32).unwrap();
             barrier.wait();
 
@@ -64,6 +70,7 @@ fn start(procfile_path: &Path, root_path: &Path) -> Result<()> {
 
     barrier.wait();
     while let Ok(pid) = rx.try_recv() {
+        let pid = Pid::from_raw(pid);
         sys::wait::waitpid(pid, None).unwrap();
     }
 
@@ -82,30 +89,33 @@ fn extract_value<'a>(name: &str, args_list: &[&'a ArgMatches]) -> Option<&'a str
 
 fn main() {
     let app = App::new("fors")
-                  .version(env!("CARGO_PKG_VERSION"))
-                  .author("John Downey <jdowney@gmail.com>")
-                  .about("Run commands in a Procfile")
-                  .global_setting(AppSettings::UnifiedHelpMessage)
-                  .setting(AppSettings::VersionlessSubcommands)
-                  .arg(Arg::with_name("procfile")
-                           .short("f")
-                           .long("procfile")
-                           .takes_value(true)
-                           .value_name("PROCFILE")
-                           .default_value("Procfile")
-                           .global(true)
-                           .help("Set the file to use"))
-                  .arg(Arg::with_name("root")
-                           .short("d")
-                           .long("root")
-                           .takes_value(true)
-                           .value_name("ROOT")
-                           .default_value(".")
-                           .global(true)
-                           .help("Set the directory to run in"))
-                  .subcommand(SubCommand::with_name("check")
-                                  .about("Validate application Procfile"))
-                  .subcommand(SubCommand::with_name("start").about("Run application Procfile"));
+        .version(env!("CARGO_PKG_VERSION"))
+        .author("John Downey <jdowney@gmail.com>")
+        .about("Run commands in a Procfile")
+        .global_setting(AppSettings::UnifiedHelpMessage)
+        .setting(AppSettings::VersionlessSubcommands)
+        .arg(
+            Arg::with_name("procfile")
+                .short("f")
+                .long("procfile")
+                .takes_value(true)
+                .value_name("PROCFILE")
+                .default_value("Procfile")
+                .global(true)
+                .help("Set the file to use"),
+        )
+        .arg(
+            Arg::with_name("root")
+                .short("d")
+                .long("root")
+                .takes_value(true)
+                .value_name("ROOT")
+                .default_value(".")
+                .global(true)
+                .help("Set the directory to run in"),
+        )
+        .subcommand(SubCommand::with_name("check").about("Validate application Procfile"))
+        .subcommand(SubCommand::with_name("start").about("Run application Procfile"));
     let args = app.get_matches();
 
     let result = match args.subcommand() {

@@ -9,6 +9,6 @@ license = "MIT"
 
 [dependencies]
 clap = "^2.18.0"
-nix = "^0.7.0"
+nix = "^0.22.2"
 nom = "^2.0"
 term = "^0.4.4"

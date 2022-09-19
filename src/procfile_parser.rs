@@ -1,4 +1,4 @@
-use nom::{IResult, line_ending, not_line_ending, space};
+use nom::{line_ending, not_line_ending, space, IResult};
 use std::fs::File;
 use std::io;
 use std::io::Read;
@@ -66,11 +66,13 @@ mod tests {
     fn test_simple_command() {
         let input = b"test: command";
         let result = process_entries(input.as_ref());
-        assert_eq!(result.unwrap().1,
-                   vec![ProcfileEntry {
-                            name: "test".to_string(),
-                            command: "command".to_string(),
-                        }]);
+        assert_eq!(
+            result.unwrap().1,
+            vec![ProcfileEntry {
+                name: "test".to_string(),
+                command: "command".to_string(),
+            }]
+        );
     }
 
     #[test]
@@ -78,14 +80,18 @@ mod tests {
         let input = b"test: command\nhello: world\n";
         let result = process_entries(input.as_ref());
         println!("{:?}", result);
-        assert_eq!(result.unwrap().1,
-                   vec![ProcfileEntry {
-                            name: "test".to_string(),
-                            command: "command".to_string(),
-                        },
-                        ProcfileEntry {
-                            name: "hello".to_string(),
-                            command: "world".to_string(),
-                        }]);
+        assert_eq!(
+            result.unwrap().1,
+            vec![
+                ProcfileEntry {
+                    name: "test".to_string(),
+                    command: "command".to_string(),
+                },
+                ProcfileEntry {
+                    name: "hello".to_string(),
+                    command: "world".to_string(),
+                }
+            ]
+        );
     }
 }

@@ -7,18 +7,20 @@ pub struct Output {
     terminal: Box<term::StdoutTerminal>,
 }
 
-const COLORS: [u16; 12] = [term::color::CYAN,
-                           term::color::YELLOW,
-                           term::color::GREEN,
-                           term::color::MAGENTA,
-                           term::color::RED,
-                           term::color::BLUE,
-                           term::color::BRIGHT_CYAN,
-                           term::color::BRIGHT_YELLOW,
-                           term::color::BRIGHT_GREEN,
-                           term::color::BRIGHT_MAGENTA,
-                           term::color::BRIGHT_RED,
-                           term::color::BRIGHT_BLUE];
+const COLORS: [u16; 12] = [
+    term::color::CYAN,
+    term::color::YELLOW,
+    term::color::GREEN,
+    term::color::MAGENTA,
+    term::color::RED,
+    term::color::BLUE,
+    term::color::BRIGHT_CYAN,
+    term::color::BRIGHT_YELLOW,
+    term::color::BRIGHT_GREEN,
+    term::color::BRIGHT_MAGENTA,
+    term::color::BRIGHT_RED,
+    term::color::BRIGHT_BLUE,
+];
 
 impl Output {
     pub fn new(padding: usize) -> Output {
